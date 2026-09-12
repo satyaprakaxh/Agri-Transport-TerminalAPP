@@ -1,6 +1,6 @@
 const { collectRouteData } = require("./routeAssessment");
+const { validateRoute } = require("./validator");
 const { askQuestion, closeInput } = require("./input");
-
 function displayMenu() {
     console.log("\n========================================");
     console.log("           AGRI ROAD PLANNER");
@@ -21,12 +21,24 @@ async function main() {
 
         switch (choice) {
             case "1": {
-                const route = await collectRouteData();
+            const route = await collectRouteData();
+            const errors = validateRoute(route);
 
-                console.log("\nRoute data collected:");
-                console.log(route);
+            if (errors.length > 0) {
+                console.log("\nRoute contains invalid data:");
+
+                for (const error of errors) {
+                    console.log(`- ${error}`);
+                }
+
                 break;
             }
+
+            console.log("\nRoute data is valid.");
+            console.log(route);
+
+            break;
+        }
 
             case "2":
                 console.log("\nSaved projects will be implemented here.");
