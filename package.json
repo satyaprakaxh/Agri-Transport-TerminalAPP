@@ -1,0 +1,22 @@
+{
+  "name": "agri-transport",
+  "version": "1.0.0",
+  "description": "A JavaScript/Node.js terminal application developed as a college project for the problem statement:",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/satyaprakaxh/Agri-Transport-TerminalAPP.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/satyaprakaxh/Agri-Transport-TerminalAPP/issues"
+  },
+  "homepage": "https://github.com/satyaprakaxh/Agri-Transport-TerminalAPP#readme"
+}
