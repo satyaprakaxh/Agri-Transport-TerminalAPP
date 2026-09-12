@@ -1,17 +1,5 @@
-const readline = require("readline");
-
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
-function askQuestion(question) {
-    return new Promise((resolve) => {
-        rl.question(question, (answer) => {
-            resolve(answer);
-        });
-    });
-}
+const { collectRouteData } = require("./routeAssessment");
+const { askQuestion, closeInput } = require("./input");
 
 function displayMenu() {
     console.log("\n========================================");
@@ -29,12 +17,16 @@ async function main() {
     while (isRunning) {
         displayMenu();
 
-        const choice = (await askQuestion("Select an option: ")).trim();
+        const choice = await askQuestion("Select an option: ");
 
         switch (choice) {
-            case "1":
-                console.log("\nRoute assessment will be implemented here.");
+            case "1": {
+                const route = await collectRouteData();
+
+                console.log("\nRoute data collected:");
+                console.log(route);
                 break;
+            }
 
             case "2":
                 console.log("\nSaved projects will be implemented here.");
@@ -50,7 +42,7 @@ async function main() {
         }
     }
 
-    rl.close();
+    closeInput();
 }
 
 main();
