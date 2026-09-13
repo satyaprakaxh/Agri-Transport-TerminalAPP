@@ -1,49 +1,57 @@
-const { askQuestion } = require("./input");
-const { validateRoute } = require("./validator");
+const {
+    askRequiredString,
+    askPositiveNumber,
+    askChoice
+} = require("./input");
 
 async function collectRouteData() {
     console.log("\n========================================");
     console.log("          NEW ROUTE ASSESSMENT");
-    console.log("========================================\n");
+    console.log("========================================");
 
-    const farmName = await askQuestion("Farm name: ");
-    const location = await askQuestion("Location/state: ");
+    const farmName = await askRequiredString("\nFarm name: ");
 
-    const distance = Number(
-        await askQuestion("Distance to nearest motorable road (meters): ")
+    const location = await askRequiredString(
+        "Location/state: "
     );
 
-    const terrain = (
-        await askQuestion("Terrain (flat / hilly / very hilly): ")
-    ).toLowerCase();
-
-    const slope = (
-        await askQuestion("Slope (low / moderate / severe): ")
-    ).toLowerCase();
-
-    const rainfall = (
-        await askQuestion("Rainfall (low / moderate / high): ")
-    ).toLowerCase();
-
-    const groundCondition = (
-        await askQuestion("Ground condition (good / moderate / poor): ")
-    ).toLowerCase();
-
-    const produceLoad = Number(
-        await askQuestion("Daily produce load (kg): ")
+    const distance = await askPositiveNumber(
+        "Distance to nearest motorable road (meters): "
     );
 
-    const bambooAvailability = (
-        await askQuestion(
-            "Bamboo availability (low / moderate / high): "
-        )
-    ).toLowerCase();
+    const terrain = await askChoice(
+        "Select terrain type:",
+        ["flat", "hilly", "very hilly"]
+    );
 
-    const plasticAvailability = (
-        await askQuestion(
-            "Plastic waste availability (low / moderate / high): "
-        )
-    ).toLowerCase();
+    const slope = await askChoice(
+        "Select slope severity:",
+        ["low", "moderate", "severe"]
+    );
+
+    const rainfall = await askChoice(
+        "Select rainfall level:",
+        ["low", "moderate", "high"]
+    );
+
+    const groundCondition = await askChoice(
+        "Select ground condition:",
+        ["good", "moderate", "poor"]
+    );
+
+    const produceLoad = await askPositiveNumber(
+        "Daily produce load (kg): "
+    );
+
+    const bambooAvailability = await askChoice(
+        "Select bamboo availability:",
+        ["low", "moderate", "high"]
+    );
+
+    const plasticAvailability = await askChoice(
+        "Select plastic waste availability:",
+        ["low", "moderate", "high"]
+    );
 
     return {
         farmName,
