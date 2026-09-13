@@ -1,0 +1,59 @@
+[
+    {
+        "id": 1789281603047,
+        "createdAt": "2026-09-13T06:40:03.047Z",
+        "route": {
+            "farmName": "sp valley",
+            "location": "bihar",
+            "distance": 220,
+            "terrain": "flat",
+            "slope": "low",
+            "rainfall": "high",
+            "groundCondition": "moderate",
+            "produceLoad": 221,
+            "bambooAvailability": "high",
+            "plasticAvailability": "high"
+        },
+        "assessment": {
+            "riskScore": 7,
+            "riskLevel": "Moderate"
+        },
+        "deployment": {
+            "panelCount": 74,
+            "bambooKg": 888,
+            "recycledPlasticKg": 592,
+            "baseMaterialKg": 13320
+        },
+        "cost": {
+            "bambooCost": 53280,
+            "plasticCost": 26640,
+            "baseMaterialCost": 106560,
+            "labourCost": 44400,
+            "installationCost": 22200,
+            "transportationCost": 330,
+            "total": 253410
+        },
+        "impact": {
+            "environmental": {
+                "recycledPlasticUsedKg": 592,
+                "bambooUsedKg": 888
+            },
+            "logistics": {
+                "routeDistanceKm": 0.22,
+                "dailyProduceLoadKg": 221,
+                "annualProduceLoadKg": 55250,
+                "operatingDaysPerYear": 250
+            }
+        },
+        "recommendation": {
+            "solution": "Reinforced modular panel",
+            "measures": [
+                "Improved drainage",
+                "Anti-slip surface",
+                "Basic slope adaptation"
+            ],
+            "engineeringReview": false,
+            "warnings": []
+        }
+    }
+]

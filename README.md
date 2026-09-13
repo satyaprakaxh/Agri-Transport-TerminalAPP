@@ -1,433 +1,415 @@
-# Agri Road Planner — Terminal Application
+# Agri Road Planner
 
-A JavaScript/Node.js terminal application developed as a college project for the problem statement:
+A JavaScript-based terminal application for assessing and planning **low-cost modular transportation routes for agricultural produce from remote farms to the nearest motorable road in the North Eastern Region (NER) of India**.
 
-> **Low-Cost Smart Transportation Solution for Agri Produce from Remote Farms to Nearest Motorable Road in the North Eastern Region (NER) of India**
+---
 
-## 1. Problem Statement
+## Problem Statement
 
-Remote agricultural farms in the North Eastern Region (NER) of India often have poor or no all-weather connectivity to the nearest motorable road. Difficult terrain, steep slopes, heavy rainfall, erosion, and limited access to conventional construction materials can make rural road construction expensive and difficult to maintain.
+Remote farms in the North Eastern Region often face difficulties transporting agricultural produce because of:
 
-The proposed real-world solution in the problem statement is a modular road system using materials such as:
+* Poor road connectivity
+* Hilly and difficult terrain
+* Heavy rainfall
+* Poor ground conditions
+* High transportation costs
+* Limited access to conventional road infrastructure
 
-- Bamboo reinforcement
-- Recycled plastic waste, particularly LDPE and HDPE
-- Concrete or stabilized soil panels
-- Drainage and slope-adaptation features
-- Anti-slip surfacing
-- Optional IoT-based monitoring
+The proposed solution is a **modular road panel system** using materials such as bamboo and recycled plastic waste to create potentially lower-cost temporary or semi-permanent access routes.
 
-This repository contains a **software prototype** that models the planning and estimation side of that idea through a terminal-based application.
+This project develops a software prototype that helps evaluate a proposed route and generate an initial deployment estimate.
 
-## 2. Project Objective
+---
 
-The objective of this application is to accept basic information about a remote farm-to-road route and generate a simplified assessment and planning report.
+## Project Objective
 
-The application is intended to demonstrate how a real-world infrastructure problem can be converted into:
+The objective of Agri Road Planner is to provide a simple terminal-based decision-support tool that can:
 
-1. Structured user input
-2. Validation rules
-3. Decision-making logic
-4. Material estimation
-5. Cost estimation
-6. Environmental estimation
-7. A readable terminal report
+1. Collect information about a farm route.
+2. Assess environmental and terrain-related risk.
+3. Estimate the number of modular panels required.
+4. Estimate material requirements.
+5. Calculate an approximate deployment cost.
+6. Estimate basic agricultural logistics impact.
+7. Provide a recommended modular road configuration.
+8. Save and retrieve completed project assessments.
 
-This is an **academic software prototype**, not a certified civil-engineering design or construction estimate.
+---
 
-## 3. Proposed Application
+## How It Works
 
-The application is called **Agri Road Planner**.
-
-The user provides information about a route, such as:
-
-- Farm/project name
-- Distance to the nearest motorable road
-- Terrain type
-- Slope severity
-- Rainfall level
-- Existing road/ground condition
-- Expected agricultural produce load
-- Availability of bamboo
-- Availability of recycled plastic waste
-
-The program processes this information and produces:
-
-- Route risk assessment
-- Suggested modular road approach
-- Estimated number of panels
-- Simplified material requirements
-- Approximate project cost
-- Basic environmental impact estimate
-- Deployment recommendation
-
-## 4. Example Workflow
+The application follows this workflow:
 
 ```text
-START
-  |
-  v
-Main Menu
-  |
-  +----> Assess New Route
-  |          |
-  |          v
-  |      Collect Inputs
-  |          |
-  |          v
-  |      Validate Inputs
-  |          |
-  |          v
-  |      Assess Route
-  |          |
-  |          v
-  |      Calculate Materials & Cost
-  |          |
-  |          v
-  |      Estimate Environmental Impact
-  |          |
-  |          v
-  |      Generate Report
-  |          |
-  |          v
-  |      Save Project
-  |
-  +----> View Saved Routes
-  |
-  +----> Exit
+User Input
+    ↓
+Route Validation
+    ↓
+Risk Assessment
+    ↓
+Panel & Material Calculation
+    ↓
+Cost Estimation
+    ↓
+Environmental & Logistics Analysis
+    ↓
+Recommendation
+    ↓
+Assessment Report
+    ↓
+Optional Project Storage
 ```
 
-## 5. Important Scope Boundary
+---
 
-The underlying problem statement concerns physical road infrastructure. The terminal application does **not** attempt to replace professional civil or structural engineering.
+## Features
 
-The calculations in this project are simplified educational models based on explicit project assumptions. They are intended to demonstrate programming, data handling, decision logic, and estimation.
+### 1. Route Assessment
 
-Before actual construction, a real project would require engineering surveys, soil investigation, structural design, material testing, drainage design, slope stability analysis, safety assessment, local standards, environmental considerations, and professional approval.
+The user provides:
 
-## 6. Planned Features
+* Farm name
+* Location/state
+* Distance to nearest motorable road
+* Terrain type
+* Slope severity
+* Rainfall level
+* Ground condition
+* Daily agricultural produce load
+* Bamboo availability
+* Recycled plastic availability
 
-### Core Features
+---
 
-- Interactive terminal menu
-- Route information input
-- Input validation
-- Route risk scoring
-- Modular panel quantity estimation
-- Bamboo and recycled-plastic material estimation
-- Approximate cost calculation
-- Basic environmental impact calculation
-- Final formatted route report
+### 2. Risk Assessment
 
-### Optional Features
+The application calculates a simple risk score using four factors:
 
-- Save projects locally using JSON
-- View previously saved projects
-- Compare route assessments
-- Improved terminal formatting
-- Basic statistics
-- Future IoT monitoring concept
+* Terrain
+* Slope
+* Rainfall
+* Ground condition
 
-## 7. Technology Stack
+Each factor receives a score from **1 to 3**.
 
-- **Language:** JavaScript
-- **Runtime:** Node.js
-- **Package Manager:** npm
-- **Data Storage:** JSON file (planned optional feature)
-- **Interface:** Command Line / Terminal
+The total score ranges from **4 to 12**.
 
-The first version intentionally avoids a web framework, database, frontend framework, or cloud infrastructure so that the core programming concepts remain clear and easy to explain during evaluation.
+| Score | Risk Level |
+| ----: | ---------- |
+|   4–5 | Low        |
+|   6–8 | Moderate   |
+|  9–10 | High       |
+| 11–12 | Very High  |
 
-## 8. Planned Project Structure
+The risk model is intentionally simple and transparent for this academic prototype.
 
-The project will be developed incrementally. Files will only be introduced when they have a clear responsibility.
+---
+
+### 3. Modular Panel Calculation
+
+The prototype assumes each panel has:
+
+* Length: **3 m**
+* Width: **1 m**
+
+The number of panels is calculated using:
 
 ```text
-agri-road-planner/
-|
-+-- src/
-|   +-- app.js
-|   +-- menu.js
-|   +-- input.js
-|   +-- validator.js
-|   +-- assessment.js
-|   +-- calculator.js
-|   +-- report.js
-|
-+-- data/
-|   +-- assumptions.js
-|   +-- projects.json        # optional, added later
-|
-+-- package.json
-+-- README.md
+Panels Required = Ceiling(Route Distance / Panel Length)
 ```
 
-### File Responsibilities
+This ensures that a partial final section is also accounted for.
 
-| File | Responsibility |
-|---|---|
-| `src/app.js` | Controls the overall application flow |
-| `src/menu.js` | Handles terminal menu logic |
-| `src/input.js` | Collects user input |
-| `src/validator.js` | Validates and sanitizes input |
-| `src/assessment.js` | Calculates route/risk assessment |
-| `src/calculator.js` | Calculates material and cost estimates |
-| `src/report.js` | Formats and prints the final report |
-| `data/assumptions.js` | Stores project assumptions and constants |
-| `data/projects.json` | Stores saved projects if persistence is implemented |
-| `package.json` | Stores project metadata and npm configuration |
-| `README.md` | Documents the project |
+---
 
-## 9. Development Roadmap
+### 4. Material Estimation
 
-The project will be built in stages instead of writing the entire application at once.
+The prototype uses configurable assumptions for material requirements per panel:
 
-### Stage 0 — Convert the Problem into Software Requirements
+* Bamboo
+* Recycled plastic
+* Base material
 
-Define:
+The total requirement is calculated from the number of panels.
 
-- Inputs
-- Outputs
-- Assumptions
-- Validation rules
-- Core calculations
-- Scope limitations
+---
 
-### Stage 1 — Node.js Project Setup
+### 5. Cost Estimation
 
-Learn and use:
+The application estimates:
 
-- Project directory creation
-- Node.js
-- npm
-- `npm init`
-- `package.json`
-- Running JavaScript with Node.js
+* Bamboo cost
+* Recycled plastic cost
+* Base material cost
+* Labour cost
+* Installation cost
+* Transportation cost
+* Total estimated deployment cost
 
-### Stage 2 — First CLI Program
-
-Build a minimal terminal menu and learn:
-
-- `console.log()`
-- Variables and constants
-- Functions
-- Basic program flow
-
-### Stage 3 — User Input
-
-Make the program interactive and learn:
-
-- Terminal input in Node.js
-- Asynchronous input handling
-- String-to-number conversion
-- Basic error handling
-
-### Stage 4 — Data Modeling
-
-Represent a route as a JavaScript object and learn:
-
-- Objects
-- Properties
-- Arrays where appropriate
-- Passing data between functions
-
-### Stage 5 — Input Validation
-
-Prevent invalid input such as negative distances or unsupported menu options.
-
-Topics include:
-
-- Conditions
-- Logical operators
-- Loops
-- Validation functions
-- Defensive programming
-
-### Stage 6 — Route Assessment Engine
-
-Convert route conditions into a transparent scoring model.
-
-Possible factors include:
-
-- Terrain
-- Slope
-- Rainfall
-- Ground/road condition
-- Route distance
-
-### Stage 7 — Material and Cost Calculator
-
-Estimate:
-
-- Number of modular panels
-- Bamboo requirement
-- Recycled-plastic requirement
-- Other assumed materials
-- Labour/transport/installation components
-- Total approximate cost
-
-All assumptions will be explicitly documented.
-
-### Stage 8 — Environmental Impact Estimate
-
-Estimate simplified indicators such as the quantity of plastic waste incorporated into the proposed road system.
-
-### Stage 9 — Final Report
-
-Present all calculations in a structured terminal report.
-
-### Stage 10 — Refactoring and Project Structure
-
-Separate responsibilities into modules so the application is easier to understand, maintain, and explain.
-
-### Stage 11 — Optional JSON Persistence
-
-Add the ability to save and retrieve route assessments using local JSON files.
-
-## 10. Design Principle
-
-The application follows a simple pipeline:
+All rates are stored centrally in:
 
 ```text
-INPUT
-  ->
-VALIDATION
-  ->
-DATA MODEL
-  ->
-ASSESSMENT LOGIC
-  ->
-CALCULATIONS
-  ->
-REPORT
+data/assumptions.js
 ```
 
-A major learning objective is to keep these responsibilities separate instead of putting the entire program inside one large function.
+This allows the assumptions to be modified without changing the calculation logic.
 
-## 11. Initial Data Model
+---
 
-A route assessment will eventually be represented approximately like this:
+### 6. Environmental Impact
+
+The application reports the estimated quantity of:
+
+* Recycled plastic used
+* Bamboo used
+
+No unsupported carbon-reduction claims are made.
+
+---
+
+### 7. Agricultural Logistics
+
+The application estimates:
+
+* Route distance in kilometres
+* Daily produce load
+* Annual produce load
+* Assumed operating days per year
+
+The prototype does not claim a specific percentage reduction in transportation costs because a reliable baseline is not available.
+
+---
+
+### 8. Recommendations
+
+Based on the calculated risk level, the application recommends a suitable prototype configuration.
+
+Possible recommendations include:
+
+* Standard modular panel
+* Reinforced modular panel
+* Enhanced drainage
+* Anti-slip surface
+* Slope adaptation
+* Additional reinforcement
+* Site-specific stabilization
+
+For higher-risk routes, the application flags that **engineering review is required before deployment**.
+
+---
+
+### 9. Project Storage
+
+Completed assessments can be saved locally in:
 
 ```text
-Route
-|
-+-- farmName
-+-- location
-+-- distance
-+-- terrain
-+-- slope
-+-- rainfall
-+-- groundCondition
-+-- produceLoad
-+-- bambooAvailability
-+-- plasticAvailability
+data/projects.json
 ```
 
-The exact JavaScript representation will be implemented during development and explained before it is written.
+Saved projects can be loaded when the application is restarted.
 
-## 12. Example Output
+---
 
-A completed assessment may look conceptually like this:
+## Technology Stack
+
+| Technology            | Purpose                        |
+| --------------------- | ------------------------------ |
+| JavaScript            | Application logic              |
+| Node.js               | Runtime environment            |
+| npm                   | Project/package management     |
+| JSON                  | Data storage and configuration |
+| Node.js `readline`    | Terminal input                 |
+| Node.js `fs/promises` | File operations                |
+
+---
+
+## Project Structure
 
 ```text
-==================================================
-              AGRI ROAD ASSESSMENT
-==================================================
-
-Farm              : Green Valley Farm
-Route Distance    : 180 m
-Terrain           : Hilly
-Rainfall          : High
-Slope             : Severe
-Daily Produce     : 1200 kg
-
---------------------------------------------------
-RISK ASSESSMENT
---------------------------------------------------
-
-Overall Risk      : HIGH
-
---------------------------------------------------
-RECOMMENDED SOLUTION
---------------------------------------------------
-
-Bamboo-reinforced modular panels with recycled
-plastic composite elements
-
---------------------------------------------------
-ESTIMATION
---------------------------------------------------
-
-Panels Required   : 60
-Bamboo Required   : XXX kg
-Plastic Required  : XXX kg
-Estimated Cost    : Rs. XXXXXX
-
---------------------------------------------------
-ENVIRONMENTAL IMPACT
---------------------------------------------------
-
-Plastic Waste Used: XXX kg
-
-==================================================
+Agri-transport/
+│
+├── data/
+│   ├── assumptions.js
+│   └── projects.json
+│
+├── src/
+│   ├── app.js
+│   ├── assessment.js
+│   ├── calculator.js
+│   ├── cost.js
+│   ├── input.js
+│   ├── recommendation.js
+│   ├── report.js
+│   ├── routeAssessment.js
+│   ├── storage.js
+│   └── validator.js
+│
+├── package.json
+└── README.md
 ```
 
-The numerical values above are illustrative only. Actual project values will be generated by the implemented assumptions and formulas.
+### Main Files
 
-## 13. Why a Terminal Application?
+**`src/app.js`**
+Controls the main application flow and terminal menu.
 
-A terminal application was selected because it allows the project to focus on the programming and problem-solving aspects of the solution without introducing unnecessary frontend complexity.
+**`src/input.js`**
+Handles user input and basic input validation.
 
-It also provides a straightforward way to demonstrate:
+**`src/routeAssessment.js`**
+Collects route-specific information from the user.
 
-- Input handling
-- Data structures
-- Algorithms
-- Functions
-- Modular code
-- File handling
-- Validation
-- Calculations
-- Program flow
+**`src/validator.js`**
+Validates route data before processing.
 
-## 14. Learning Objectives
+**`src/assessment.js`**
+Calculates the route risk score and risk level.
 
-By completing this project, the developer should understand:
+**`src/calculator.js`**
+Calculates the number of panels and required materials.
 
-- How Node.js executes JavaScript outside the browser
-- How npm-based projects are structured
-- How terminal applications receive user input
-- How JavaScript objects model real-world entities
-- How validation protects program logic
-- How business/problem rules become algorithms
-- How functions divide a problem into smaller responsibilities
-- How modules allow code to be separated and reused
-- How local JSON persistence works
-- How assumptions affect the result of an estimation model
+**`src/cost.js`**
+Calculates estimated deployment costs.
 
-## 15. Future Expansion
+**`src/recommendation.js`**
+Generates a recommended road configuration based on the risk assessment.
 
-If the prototype is extended beyond the college submission, possible additions include:
+**`src/report.js`**
+Displays the complete assessment report in the terminal.
 
-- GIS/map-based route identification
-- Real elevation and slope data
-- Weather and rainfall data integration
-- Soil and erosion risk data
-- More rigorous engineering cost models
-- Farmer/collector dashboards
-- IoT sensors for panel wear and road conditions
-- Mobile or web interface
-- Database-backed project management
-- Route optimization based on produce volume and distance
+**`src/storage.js`**
+Handles saving and loading project data.
 
-These features are outside the scope of the initial terminal prototype.
+**`data/assumptions.js`**
+Contains prototype assumptions for dimensions, materials, costs, risk scores, and recommendations.
 
-## 16. Project Status
+**`data/projects.json`**
+Stores saved project assessments.
 
-**Current status:** Requirements and architecture definition.
+---
 
-The application will be implemented step by step, with each command, file, function, and important line of code explained before it is introduced.
+## Installation
 
-## 17. Academic Note
+Make sure **Node.js** is installed.
 
-This project is a software prototype inspired by the stated 2025 transportation and logistics problem statement. It is intended for educational demonstration and should not be treated as a construction specification.
+Clone or download the project and navigate into the project directory:
+
+```bash
+cd Agri-transport
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+The project currently uses Node.js built-in modules, so no external package dependencies are required.
+
+---
+
+## Running the Application
+
+Run:
+
+```bash
+npm start
+```
+
+The application will display:
+
+```text
+========================================
+           AGRI ROAD PLANNER
+========================================
+1. Assess a new route
+2. View saved projects
+3. Exit
+========================================
+```
+
+---
+
+## Prototype Assumptions
+
+The calculations in this application are based on configurable assumptions rather than field-tested engineering specifications.
+
+Examples include:
+
+* Panel dimensions
+* Material quantities
+* Material prices
+* Labour costs
+* Installation costs
+* Transportation costs
+* Operating days
+* Risk scoring
+
+These values are intended for **academic modelling and demonstration**.
+
+They should be replaced with field measurements, supplier quotations, structural calculations, and engineering validation before any real-world construction or deployment.
+
+---
+
+## Scope and Limitations
+
+This project is a **software prototype for academic purposes**.
+
+It does not replace:
+
+* Civil engineering design
+* Structural analysis
+* Geotechnical investigation
+* Hydrological analysis
+* Road safety certification
+* Government approval
+* Professional construction planning
+
+The risk assessment is a simplified scoring model and has not been validated against real-world road failure data.
+
+Similarly, the cost model provides estimates based on predefined assumptions and should not be interpreted as a market quotation.
+
+---
+
+## Future Scope
+
+The system could be expanded with:
+
+* GIS and map integration
+* GPS-based route assessment
+* Real terrain elevation data
+* Weather and rainfall APIs
+* Real supplier pricing
+* Engineering design calculations
+* Structural load analysis
+* IoT-based panel monitoring
+* Sensor-based moisture and structural condition monitoring
+* Web/mobile interface
+* Database-backed multi-user system
+* Government and NGO deployment dashboards
+* Machine-learning-based route risk prediction
+
+---
+
+## Academic Significance
+
+The project demonstrates how software can support infrastructure planning by combining:
+
+* User input
+* Data validation
+* Rule-based decision making
+* Mathematical calculations
+* Cost modelling
+* Environmental metrics
+* Recommendation systems
+* Local data persistence
+
+It provides a basic computational framework that can later be connected to real engineering, geographic, and IoT data.
+
+---
+
+## Disclaimer
+
+**Agri Road Planner is an academic software prototype.**
+
+The output of this application should not be used as the sole basis for constructing or deploying a road system. Actual implementation requires site investigation, structural design, material testing, drainage planning, safety assessment, and approval from qualified engineers and relevant authorities.
