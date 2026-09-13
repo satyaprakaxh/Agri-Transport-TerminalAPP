@@ -64,7 +64,51 @@ logistics: {
             maxScore: 12,
             label: "Very High"
         }
-    ]
+    ],
+    recommendations: {
+    low: {
+        solution: "Standard modular panel",
+        measures: [
+            "Basic drainage provision",
+            "Anti-slip surface"
+        ],
+        engineeringReview: false
+    },
+
+    moderate: {
+        solution: "Reinforced modular panel",
+        measures: [
+            "Improved drainage",
+            "Anti-slip surface",
+            "Basic slope adaptation"
+        ],
+        engineeringReview: false
+    },
+
+    high: {
+        solution: "Reinforced modular panel with enhanced drainage",
+        measures: [
+            "Enhanced drainage",
+            "Anti-slip surface",
+            "Slope adaptation",
+            "Additional reinforcement"
+        ],
+        engineeringReview: true
+    },
+
+    "very high": {
+        solution: "Enhanced modular road system",
+        measures: [
+            "Enhanced drainage",
+            "Anti-slip surface",
+            "Slope adaptation",
+            "Additional reinforcement",
+            "Site-specific stabilization"
+        ],
+        engineeringReview: true
+    }
+}
 };
+
 
 module.exports = assumptions;

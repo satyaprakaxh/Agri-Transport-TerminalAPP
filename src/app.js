@@ -5,6 +5,8 @@ const { validateRoute } = require("./validator");
 const { askQuestion, closeInput } = require("./input");
 const { assessRoute } = require("./assessment");
 const { calculateDeployment } = require("./calculator");
+const { generateRecommendation } = require("./recommendation");
+const { displayReport } = require("./report");
 
 function displayMenu() {
     console.log("\n========================================");
@@ -45,62 +47,18 @@ async function main() {
     const cost = calculateTotalCost(route, deployment);
     const impact = calculateImpact(route, deployment);
 
-    console.log("\nRoute Assessment:");
-    console.log(`Risk Score: ${assessment.riskScore}`);
-    console.log(`Risk Level: ${assessment.riskLevel}`);
+    const recommendation =
+        generateRecommendation(route, assessment);
 
-    console.log("\nDeployment Estimate:");
-    console.log(`Panels Required: ${deployment.panelCount}`);
-    console.log(`Bamboo: ${deployment.bambooKg} kg`);
-    console.log(
-        `Recycled Plastic: ${deployment.recycledPlasticKg} kg`
+    displayReport(
+        route,
+        assessment,
+        deployment,
+        cost,
+        impact,
+        recommendation
     );
-    console.log(
-        `Base Material: ${deployment.baseMaterialKg} kg`
-    );
-    console.log("\nCost Estimate:");
-console.log(
-    `Bamboo: ₹${cost.bambooCost.toLocaleString("en-IN")}`
-);
-console.log(
-    `Recycled Plastic: ₹${cost.plasticCost.toLocaleString("en-IN")}`
-);
-console.log(
-    `Base Material: ₹${cost.baseMaterialCost.toLocaleString("en-IN")}`
-);
-console.log(
-    `Labour: ₹${cost.labourCost.toLocaleString("en-IN")}`
-);
-console.log(
-    `Installation: ₹${cost.installationCost.toLocaleString("en-IN")}`
-);
-console.log(
-    `Transportation: ₹${cost.transportationCost.toLocaleString("en-IN")}`
-);
-console.log(
-    `Total Estimated Cost: ₹${cost.total.toLocaleString("en-IN")}`
-);
-console.log("\nEnvironmental Impact:");
-console.log(
-    `Recycled Plastic Used: ${impact.environmental.recycledPlasticUsedKg} kg`
-);
-console.log(
-    `Bamboo Used: ${impact.environmental.bambooUsedKg} kg`
-);
 
-console.log("\nAgricultural Logistics Impact:");
-console.log(
-    `Route Connected: ${impact.logistics.routeDistanceKm} km`
-);
-console.log(
-    `Daily Produce Load: ${impact.logistics.dailyProduceLoadKg} kg`
-);
-console.log(
-    `Estimated Annual Produce Load: ${impact.logistics.annualProduceLoadKg.toLocaleString("en-IN")} kg`
-);
-console.log(
-    `Operating Days: ${impact.logistics.operatingDaysPerYear} days/year`
-);
 
     break;
 }
