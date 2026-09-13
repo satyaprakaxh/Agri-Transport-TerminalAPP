@@ -1,4 +1,5 @@
 const { calculateTotalCost } = require("./cost");
+const { calculateImpact } = require("./impact");
 const { collectRouteData } = require("./routeAssessment");
 const { validateRoute } = require("./validator");
 const { askQuestion, closeInput } = require("./input");
@@ -42,6 +43,7 @@ async function main() {
     const assessment = assessRoute(route);
     const deployment = calculateDeployment(route);
     const cost = calculateTotalCost(route, deployment);
+    const impact = calculateImpact(route, deployment);
 
     console.log("\nRoute Assessment:");
     console.log(`Risk Score: ${assessment.riskScore}`);
@@ -77,6 +79,27 @@ console.log(
 );
 console.log(
     `Total Estimated Cost: ₹${cost.total.toLocaleString("en-IN")}`
+);
+console.log("\nEnvironmental Impact:");
+console.log(
+    `Recycled Plastic Used: ${impact.environmental.recycledPlasticUsedKg} kg`
+);
+console.log(
+    `Bamboo Used: ${impact.environmental.bambooUsedKg} kg`
+);
+
+console.log("\nAgricultural Logistics Impact:");
+console.log(
+    `Route Connected: ${impact.logistics.routeDistanceKm} km`
+);
+console.log(
+    `Daily Produce Load: ${impact.logistics.dailyProduceLoadKg} kg`
+);
+console.log(
+    `Estimated Annual Produce Load: ${impact.logistics.annualProduceLoadKg.toLocaleString("en-IN")} kg`
+);
+console.log(
+    `Operating Days: ${impact.logistics.operatingDaysPerYear} days/year`
 );
 
     break;
