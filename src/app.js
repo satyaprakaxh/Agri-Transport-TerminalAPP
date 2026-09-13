@@ -1,3 +1,4 @@
+const { calculateTotalCost } = require("./cost");
 const { collectRouteData } = require("./routeAssessment");
 const { validateRoute } = require("./validator");
 const { askQuestion, closeInput } = require("./input");
@@ -40,6 +41,7 @@ async function main() {
 
     const assessment = assessRoute(route);
     const deployment = calculateDeployment(route);
+    const cost = calculateTotalCost(route, deployment);
 
     console.log("\nRoute Assessment:");
     console.log(`Risk Score: ${assessment.riskScore}`);
@@ -54,6 +56,28 @@ async function main() {
     console.log(
         `Base Material: ${deployment.baseMaterialKg} kg`
     );
+    console.log("\nCost Estimate:");
+console.log(
+    `Bamboo: ₹${cost.bambooCost.toLocaleString("en-IN")}`
+);
+console.log(
+    `Recycled Plastic: ₹${cost.plasticCost.toLocaleString("en-IN")}`
+);
+console.log(
+    `Base Material: ₹${cost.baseMaterialCost.toLocaleString("en-IN")}`
+);
+console.log(
+    `Labour: ₹${cost.labourCost.toLocaleString("en-IN")}`
+);
+console.log(
+    `Installation: ₹${cost.installationCost.toLocaleString("en-IN")}`
+);
+console.log(
+    `Transportation: ₹${cost.transportationCost.toLocaleString("en-IN")}`
+);
+console.log(
+    `Total Estimated Cost: ₹${cost.total.toLocaleString("en-IN")}`
+);
 
     break;
 }
