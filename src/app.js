@@ -2,6 +2,7 @@ const { collectRouteData } = require("./routeAssessment");
 const { validateRoute } = require("./validator");
 const { askQuestion, closeInput } = require("./input");
 const { assessRoute } = require("./assessment");
+const { calculateDeployment } = require("./calculator");
 
 function displayMenu() {
     console.log("\n========================================");
@@ -22,8 +23,9 @@ async function main() {
         const choice = await askQuestion("Select an option: ");
 
         switch (choice) {
-            case "1": {
+         case "1": {
     const route = await collectRouteData();
+
     const errors = validateRoute(route);
 
     if (errors.length > 0) {
@@ -37,10 +39,21 @@ async function main() {
     }
 
     const assessment = assessRoute(route);
+    const deployment = calculateDeployment(route);
 
     console.log("\nRoute Assessment:");
     console.log(`Risk Score: ${assessment.riskScore}`);
     console.log(`Risk Level: ${assessment.riskLevel}`);
+
+    console.log("\nDeployment Estimate:");
+    console.log(`Panels Required: ${deployment.panelCount}`);
+    console.log(`Bamboo: ${deployment.bambooKg} kg`);
+    console.log(
+        `Recycled Plastic: ${deployment.recycledPlasticKg} kg`
+    );
+    console.log(
+        `Base Material: ${deployment.baseMaterialKg} kg`
+    );
 
     break;
 }
